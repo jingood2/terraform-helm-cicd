@@ -52,9 +52,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
-          #role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
+          #aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          #aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
 
       - name: Setup Terraform
@@ -65,7 +65,7 @@ jobs:
         run: |
           # passes a NPM_TOKEN which has access to private repo as client app doesn't pass such credential in when calling tf reusable module.
           # credit: https://github.com/hashicorp/setup-terraform/issues/33
-          git config --global url."https://oauth2:${{ secrets.NPM_TOKEN }}@github.com".insteadOf https://github.com
+          # git config --global url."https://oauth2:${{ secrets.NPM_TOKEN }}@github.com".insteadOf https://github.com
           rm -rf .terraform
           terraform init -backend-config="key=${{inputs.environment}}}" -backend-config='./.env/${{ inputs.environment || 'dev' }}/backend.tfvars' -upgrade=true -no-color -input=false
           terraform workspace select "${{inputs.environment}}" || terraform workspace new "${{inputs.environment}}"
@@ -75,17 +75,17 @@ jobs:
         run: |
           terraform plan -destroy  -input=false -var-file=.env/${{ inputs.environment || 'dev' }}/terraform.tfvars -out destroy.tfplan
       
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: general
-          SLACK_COLOR: ${{ steps.init.outputs.exitcode }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: ${{ steps.plan.outputs.stdout }} | sed '$!s/$/\\n/' | tr -d '\n' 
-          SLACK_TITLE: Post Title
-          SLACK_USERNAME: rtCamp
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-      
+      #- name: Slack Notification
+      #  uses: rtCamp/action-slack-notify@v2
+      #  env:
+      #    SLACK_CHANNEL: general
+      #    SLACK_COLOR: ${{ job.status }}
+      #    SLACK_ICON: https://github.com/rtCamp.png?size=48
+      #    SLACK_MESSAGE: "Terraform Plan result: ${{ job.status }}"
+      #    SLACK_TITLE: "Terraform Destroy Plan"
+      #    SLACK_USERNAME: "jingood2@gmail.com"
+      #    SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
       #- name: Send custom JSON data to Slack workflow
       #  id: slack
       #  uses: slackapi/slack-github-action@v1.23.0
@@ -100,21 +100,32 @@ jobs:
       #  run: |
       #    #terraform apply -auto-approve -input=false -var-file=.env/${{ inputs.environment || 'dev' }}/terraform.tfvars
       #    terraform apply -auto-approve tfplan
-      - name: send slack notification
-        # If you want to use this workflow to run terraform destroy, create a feature branch "destroy", trigger this workflow from that branch to destroy.
-        id: slack
-        run: |
-           terraform show -no-color destroy.tfplan > slack_response.txt
-           sed -i 's/\r$//g' slack_response.txt
-           SLACK_MESSAGE=$(cat slack_response.txt | sed '$!s/$/\\n/' | tr -d '\n')
-           curl -X POST -H 'Content-type: application/json' --data "{'text':'$SLACK_MESSAGE'}" ${{ secrets.SLACK_WEBHOOK_URL }}
-      
+      #- name: send slack notification
+      #  # If you want to use this workflow to run terraform destroy, create a feature branch "destroy", trigger this workflow from that branch to destroy.
+      #  id: slack
+      #  run: |
+      #     terraform show -no-color destroy.tfplan > slack_response.txt
+      #     sed -i 's/\r$//g' slack_response.txt
+      #     SLACK_MESSAGE=$(cat slack_response.txt | sed '$!s/$/\\n/' | tr -d '\n')
+      #     curl -X POST -H 'Content-type: application/json' --data "{'text':'$SLACK_MESSAGE'}" ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - name: Terraform destroy
         # If you want to use this workflow to run terraform destroy, create a feature branch "destroy", trigger this workflow from that branch to destroy.
         if: github.ref == 'refs/heads/destroy'
         id: destroy
         run: |
           terraform apply destroy.tfplan
+      
+      - name: Slack Notification 2
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: general
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: "Terraform Plan result: ${{ job.status }}"
+          SLACK_TITLE: "Terraform Destroy Plan"
+          SLACK_USERNAME: "jingood2@gmail.com"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
       
       
       

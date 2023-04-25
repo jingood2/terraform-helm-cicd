@@ -42,9 +42,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
-          #role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
+          #aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          #aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
 
       - name: Setup Terraform
@@ -65,17 +65,29 @@ jobs:
         run: |
           terraform plan -no-color -input=false -var-file=.env/${{ inputs.environment || 'dev' }}/terraform.tfvars -out tfplan
       
-      - name: send slack notification
-        # If you want to use this workflow to run terraform destroy, create a feature branch "destroy", trigger this workflow from that branch to destroy.
-        id: slack
-        run: |
-           terraform show -no-color tfplan > slack_response.txt
-           sed -i 's/\r$//g' slack_response.txt
-           SLACK_MESSAGE=$(cat slack_response.txt | sed '$!s/$/\\n/' | tr -d '\n')
-           curl -X POST -H 'Content-type: application/json' --data "{'text':'$SLACK_MESSAGE'}" ${{ secrets.SLACK_WEBHOOK_URL }}
-      
       - name: Terraform Apply - ${{ inputs.environment }}
         if: github.ref == 'refs/heads/${{ inputs.apply-branch }}' && github.event_name == 'push'
         id: apply
         run: |
           terraform apply -auto-approve tfplan
+      
+      - name: Slack Notification 
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: general
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: "Terraform Apply result: ${{ job.status }}"
+          SLACK_TITLE: "Terraform Apply"
+          SLACK_USERNAME: "jingood2@gmail.com"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
+      
+      - name: Slack Notification 
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
