@@ -1,0 +1,7 @@
+ serviceAccount:
+    create: true
+    name: kubeapps-operator
+    automountServiceAccountToken: true
+    annotations: {
+      kubernetes.io/service-account.name: kubeapps-operator
+    }
