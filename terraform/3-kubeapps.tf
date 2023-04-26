@@ -25,7 +25,7 @@ metadata:
   YAML
 }
 
-resource "kubectl_manifest" "clusterRoleBinding" {
+resource "kubectl_manifest" "cluster-role-binding" {
   yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -58,4 +58,8 @@ metadata:
     kubernetes.io/service-account.name: kubeapps-operator
 type: kubernetes.io/service-account-token
 YAML
+
+depends_on = [
+  helm_release.kubeapps
+]
 }
