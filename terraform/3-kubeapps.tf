@@ -21,7 +21,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kubeapps-operator 
-  namespace: default
+  namespace: kubeapps
   YAML
 }
 
@@ -42,7 +42,7 @@ roleRef:
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: Group
-  name: default:kubeapps-operator
+  name: kubeapps:kubeapps-operator
   YAML
 
 }
@@ -53,7 +53,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: kubeapps-operator-token
-  namespace: default
+  namespace: kubeapps 
   annotations:
     kubernetes.io/service-account.name: kubeapps-operator
 type: kubernetes.io/service-account-token
