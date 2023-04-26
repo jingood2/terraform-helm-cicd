@@ -16,7 +16,10 @@ on:
 
 #permissions:  # added using https://github.com/step-security/secure-workflows
 #  contents: read
-permissions: write-all
+#permissions: write-all
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
 
