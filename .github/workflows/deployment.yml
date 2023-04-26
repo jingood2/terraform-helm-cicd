@@ -72,18 +72,6 @@ jobs:
           terraform apply -auto-approve tfplan
       
       - name: Slack Notification 
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: general
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "Terraform Apply result: ${{ job.status }}"
-          SLACK_TITLE: "Terraform Apply"
-          SLACK_USERNAME: "jingood2@gmail.com"
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: always()
-      
-      - name: Slack Notification 
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}

@@ -116,17 +116,14 @@ jobs:
         run: |
           terraform apply destroy.tfplan
       
-      - name: Slack Notification 2
-        uses: rtCamp/action-slack-notify@v2
+      - name: Slack Notification 
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
         env:
-          SLACK_CHANNEL: general
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: "Terraform Plan result: ${{ job.status }}"
-          SLACK_TITLE: "Terraform Destroy Plan"
-          SLACK_USERNAME: "jingood2@gmail.com"
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-      
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
       
       
       - name: Delete plan file
