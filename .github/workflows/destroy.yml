@@ -52,9 +52,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
-          role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
-          #aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          #aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          #role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
 
       - name: Setup Terraform
