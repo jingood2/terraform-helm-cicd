@@ -89,6 +89,7 @@ jobs:
       with:
         #role-to-assume: ${{ secrets.DEV_DEPLOY_ROLE }}
         role-to-assume: arn:aws:iam::484752921218:role/iam-github-oidc
+        role-session-name: sampleSession
         #aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
         #aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
