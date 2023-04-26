@@ -15,7 +15,7 @@ resource "helm_release" "kubeapps" {
   ]
 }
 
-resource "kubectl" "serviceaccount" {
+resource "kubectl_manifest" "serviceaccount" {
   yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
