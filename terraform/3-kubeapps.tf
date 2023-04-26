@@ -47,7 +47,7 @@ subjects:
 
 }
 
-/* resource "kubectl_manifest" "kubeapps-operator-token" {
+resource "kubectl_manifest" "kubeapps-operator-token" {
     yaml_body = <<YAML
 apiVersion: v1
 kind: Secret
@@ -59,7 +59,4 @@ metadata:
 type: kubernetes.io/service-account-token
 YAML
 
-depends_on = [
-  helm_release.kubeapps
-]
-} */
+}
