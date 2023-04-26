@@ -22,9 +22,11 @@ kind: ServiceAccount
 metadata:
   name: kubeapps-operator 
   namespace: default
-  resourceVersion: "340"
-  uid: 63bd3d9e-6caa-463c-b23e-be99126b683f
----
+  YAML
+}
+
+resource "kubectl_manifest" "clusterRoleBinding" {
+  yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -42,6 +44,7 @@ subjects:
   kind: Group
   name: default:kubeapps-operator
   YAML
+
 }
 
 resource "kubectl_manifest" "kubeapps-operator-token" {
