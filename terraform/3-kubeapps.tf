@@ -15,7 +15,7 @@ resource "helm_release" "kubeapps" {
   ]
 }
 
-/* resource "kubectl_manifest" "serviceaccount" {
+resource "kubectl_manifest" "serviceaccount" {
   yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
@@ -23,9 +23,9 @@ metadata:
   name: kubeapps-operator 
   namespace: kubeapps
   YAML
-} */
+}
 
-/* resource "kubectl_manifest" "cluster-role-binding" {
+resource "kubectl_manifest" "cluster-role-binding" {
   yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -45,9 +45,9 @@ subjects:
   name: kubeapps:kubeapps-operator
   YAML
 
-} */
+}
 
-/* resource "kubectl_manifest" "kubeapps-operator-token" {
+resource "kubectl_manifest" "kubeapps-operator-token" {
     yaml_body = <<YAML
 apiVersion: v1
 kind: Secret
@@ -59,4 +59,4 @@ metadata:
 type: kubernetes.io/service-account-token
 YAML
 
-} */
+}

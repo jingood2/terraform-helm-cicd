@@ -1,4 +1,3 @@
 serviceAccount:
-  create: true
-  name: kubeapps-operator
-  automountServiceAccountToken: true
+  create: false
+  automountServiceAccountToken: false
