@@ -1,35 +1,29 @@
 output "kubeapps_manifest" {
-  count = var.enable_argocd ? 1 : 0
   description = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig"
-  value       = helm_release.kubeapps.manifest
+  value       = var.enable_kubeapps ? helm_release.kubeapps.manifest : null
 }
 
 output "argocd_manifest" {
-  count = var.enable_argocd ? 1 : 0
   description = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig"
-  value       = helm_release.arogcd.manifest
+  value       = var.enable_arogcd ? helm_release.arogcd.manifest : null
 }
 
 output "image_updater_manifest" {
-  count = var.enable_argocd ? 1 : 0
   description = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig"
-  value       = helm_release.image-updater.manifest
+  value       = var.enable_image_updater ? helm_release.image_updater.manifest : null
 }
 
 output "chartmuseum_manifest" {
-  count = var.enable_argocd ? 1 : 0
   description = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig"
-  value       = helm_release.chartmuseum.manifest
+  value       = var.enable_chartmuseum ? helm_release.chartmuseum.manifest : null
 }
 
 output "sealed_secrets_manifest" {
-  count = var.enable_argocd ? 1 : 0
   description = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig"
-  value       = helm_release.sealed-secrets.manifest
+  value       = var.enable_sealed_secrets ? helm_release.sealed_secrets.manifest : null
 }
 
 output "traefik_manifest" {
-  count = var.enable_argocd ? 1 : 0
   description = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig"
-  value       = helm_release.traefik.manifest
+  value       = var.enable_traefik ? helm_release.traefik.manifest : null
 }
