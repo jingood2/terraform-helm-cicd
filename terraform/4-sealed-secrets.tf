@@ -2,7 +2,7 @@
 # helm repo update
 # helm install chartmuseum -n chartmuseum --create-namespace chartmuseum/chartmuseum --version 3.9.3 -f terraform/values/chartmuseum.yaml
 resource "helm_release" "sealed-secrets" {
-  count = var.enable_sealed_secrets? 1 : 0
+  count = var.enable_sealed_secrets ? 1 : 0
 
   name             = "${local.prefix_name}-sealed-secrets"
   repository       = "https://charts.bitnami.com/bitnami"

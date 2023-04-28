@@ -5,12 +5,12 @@
 resource "helm_release" "kubeapps" {
   count = var.enable_kubeapps ? 1 : 0
 
-  name        = "${local.prefix_name}-kubeapps"
-  repository  = "https://charts.bitnami.com/bitnami"
-  chart       = "kubeapps"
-  namespace   = "kubeapps"
+  name             = "${local.prefix_name}-kubeapps"
+  repository       = "https://charts.bitnami.com/bitnami"
+  chart            = "kubeapps"
+  namespace        = "kubeapps"
   create_namespace = true
-  version     = "12.3.1"
+  version          = "12.3.1"
 
   values = [
     "${file("values/kubeapps.yaml")}"
@@ -52,7 +52,7 @@ subjects:
 resource "kubectl_manifest" "kubeapps-operator-token" {
   count = var.enable_kubeapps ? 1 : 0
 
-    yaml_body = <<YAML
+  yaml_body = <<YAML
 apiVersion: v1
 kind: Secret
 metadata:
