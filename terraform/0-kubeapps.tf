@@ -5,7 +5,7 @@
 resource "helm_release" "kubeapps" {
   count = var.enable_kubeapps ? 1 : 0
 
-  name        = "kubeapps"
+  name        = "${local.prefix_name}-kubeapps"
   repository  = "https://charts.bitnami.com/bitnami"
   chart       = "kubeapps"
   namespace   = "kubeapps"

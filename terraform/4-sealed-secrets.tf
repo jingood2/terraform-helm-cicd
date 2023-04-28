@@ -4,7 +4,7 @@
 resource "helm_release" "sealed-secrets" {
   count = var.enable_sealed_secrets? 1 : 0
 
-  name             = "sealed-secrets"
+  name             = "${local.prefix_name}-sealed-secrets"
   repository       = "https://charts.bitnami.com/bitnami"
   chart            = "sealed-secrets"
   namespace        = "kube-system"
