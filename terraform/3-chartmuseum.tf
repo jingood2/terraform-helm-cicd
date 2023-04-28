@@ -2,9 +2,9 @@
 # helm repo update
 # helm install chartmuseum -n chartmuseum --create-namespace chartmuseum/chartmuseum --version 3.9.3 -f terraform/values/chartmuseum.yaml
 resource "helm_release" "chartmuseum" {
-  count = var.enable_chartmuseum ? 1 : 0
+  count = var.enable_chartmuseum? 1 : 0
 
-  name             = "chartmuseum"
+  name             = "${local.prefix_name}-chartmuseum"
   repository       = "https://chartmuseum.github.io/charts"
   chart            = "chartmuseum"
   namespace        = "chartmuseum"
