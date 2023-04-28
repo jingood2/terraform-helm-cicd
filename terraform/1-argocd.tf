@@ -1,7 +1,7 @@
 # helm repo add argo https://argoproj.github.io/argo-helm
 # helm repo update
 # helm install argocd -n argocd --create-namespace argo/argo-cd --version 3.35.4 -f terraform/values/argocd.yaml
-resource "helm_release" "arogcd" {
+resource "helm_release" "argocd" {
   count = var.enable_argocd ? 1 : 0
 
   name       = "argocd"
