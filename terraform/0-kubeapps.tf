@@ -3,6 +3,8 @@
 # helm install argocd -n argocd --create-namespace argo/argo-cd --version 3.35.4 -f terraform/values/argocd.yaml
 # kubectl get --namespace default secret kubeapps-operator-token -o go-template='{{.data.token | base64decode}}'
 resource "helm_release" "kubeapps" {
+  count = var.enable_kubeapps ? 1 : 0
+
   name        = "kubeapps"
   repository  = "https://charts.bitnami.com/bitnami"
   chart       = "kubeapps"
@@ -16,6 +18,8 @@ resource "helm_release" "kubeapps" {
 }
 
 resource "kubectl_manifest" "serviceaccount" {
+  count = var.enable_kubeapps ? 1 : 0
+
   yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
@@ -26,6 +30,8 @@ metadata:
 }
 
 resource "kubectl_manifest" "cluster-role-binding" {
+  count = var.enable_kubeapps ? 1 : 0
+
   yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -44,6 +50,8 @@ subjects:
 }
 
 resource "kubectl_manifest" "kubeapps-operator-token" {
+  count = var.enable_kubeapps ? 1 : 0
+
     yaml_body = <<YAML
 apiVersion: v1
 kind: Secret

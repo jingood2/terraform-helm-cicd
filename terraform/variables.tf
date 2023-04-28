@@ -1,5 +1,6 @@
-# Input Variables
-# AWS Region
+#####################################################################################
+# Common Variables
+#####################################################################################
 variable "aws_region" {
   description = "Region in which AWS Resources to be created"
   type        = string
@@ -26,3 +27,40 @@ variable "cluster_id" {
   type        = string
 }
 
+#####################################################################################
+# Helm Chart Variables
+#####################################################################################
+variable "enable_kubeapps" {
+  type        = bool
+  description = "enable kubeapps helm create"
+  default     = false
+}
+variable "enable_argocd" {
+  type        = bool
+  description = "enable argocd helm create"
+  default     = false
+}
+
+variable "enable_image_updater" {
+  type        = bool
+  description = "enable argo image update helm create"
+  default     = false
+}
+
+variable "enable_chartmuseum" {
+  type        = bool
+  description = "enable chartmuseum helm create"
+  default     = false
+}
+
+variable "enable_sealed_secrets" {
+  type        = bool
+  description = "enable sealed secrets helm create"
+  default     = false
+}
+
+variable "enable_traefik" {
+  type        = bool
+  description = "enable sealed secrets helm create"
+  default     = false
+}
