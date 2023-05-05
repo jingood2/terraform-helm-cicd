@@ -11,7 +11,7 @@ resource "helm_release" "traefik" {
   create_namespace = true
   version     = "23.0.1"
 
-  values = [
-    "${file("values/traefik.yaml")}"
-  ]
+  #values = [
+  #  "${file("values/traefik.yaml")}"
+  #]
 }
