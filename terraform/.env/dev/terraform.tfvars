@@ -8,5 +8,5 @@ enable_kubeapps       = false
 enable_argocd         = true
 enable_image_updater  = false
 enable_chartmuseum    = false
-enable_sealed_secrets = false
-enable_traefik        = true
+enable_sealed_secrets = true
+enable_traefik        = false
