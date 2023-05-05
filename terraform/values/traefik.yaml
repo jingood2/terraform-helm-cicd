@@ -18,3 +18,25 @@ service:
 
 globalArguments:
   - "--api.insecure=true"
+
+deployment:
+  replicas: 2
+
+access:
+  enabled: true
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - {{ template: "traefik.name" . }}
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+      
+
+
+
+
