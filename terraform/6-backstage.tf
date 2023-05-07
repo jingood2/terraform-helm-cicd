@@ -173,7 +173,7 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
-              containerPort: 7007
+              containerPort: 7000
           envFrom:
             - secretRef:
                 name: postgres-secrets
