@@ -169,7 +169,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: jingood2/backstage:v0.5.0
+          image: jingood2/backstage:v0.6.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
