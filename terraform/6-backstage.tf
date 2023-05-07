@@ -48,7 +48,14 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: '/mnt/data'
----
+YAML
+
+}
+
+resource "kubectl_manifest" "postgress-pvc" {
+  count = var.enable_backstage ? 1 : 0
+
+  yaml_body = <<YAML
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
