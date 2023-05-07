@@ -143,7 +143,7 @@ metadata:
   namespace: backstage
 type: Opaque
 data:
-  GITHUB_TOKEN: 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
+  GITHUB_TOKEN: Z2hwX0h3VUI5NXZEMEZ1Z2dUa0ZEZVhlU1RlVVNmWHluNzN1VzJtTw==
 YAML
 
 }
