@@ -169,7 +169,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: backstage:1.0.0
+          image: roadiehq/community-backstage-image:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
