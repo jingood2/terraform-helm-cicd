@@ -181,6 +181,8 @@ spec:
                 name: backstage-secrets
 YAML
 
+  depends_on = [ kubectl_manifest.backstage-secrets  ]
+
 }
 
 resource "kubectl_manifest" "backstage-service" {
