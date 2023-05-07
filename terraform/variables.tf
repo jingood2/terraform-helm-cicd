@@ -64,3 +64,9 @@ variable "enable_traefik" {
   description = "enable sealed secrets helm create"
   default     = false
 }
+
+variable "enable_backstage" {
+  type        = bool
+  description = "enable backstage"
+  default     = false
+}
