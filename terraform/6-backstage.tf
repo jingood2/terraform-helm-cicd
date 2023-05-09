@@ -169,11 +169,11 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: jingood2/backstage:v0.13.0
+          image: jingood2/backstage:v0.14.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
-              containerPort: 7000
+              containerPort: 3000
           envFrom:
             - secretRef:
                 name: postgres-secrets
