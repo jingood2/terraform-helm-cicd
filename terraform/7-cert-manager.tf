@@ -2,10 +2,10 @@ resource "helm_release" "cert-manager" {
   count = var.enable_certmanager ? 1 : 0
 
   name             = "cert-manager"
-  repository       = "https://bitnami-labs.github.io/cert-manager"
+  repository       = "https://charts.jetstack.io/jetstack"
   chart            = "cert-manager"
   namespace        = "kube-system"
-  version          = "0.9.6"
+  version          = "v1.11.0"
   #values = [
   #  "${file("values/cert-manager.yaml")}"
   #]
