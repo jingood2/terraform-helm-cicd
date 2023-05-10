@@ -42,7 +42,7 @@ resource "kubernetes_manifest" "letsencrypt_issuer_staging" {
     }
   ))
 
-  depends_on = [helm_release.cert-manager]
+  depends_on = [helm_release.cert-manager, kubectl_manifest.cloudflare-api-token-secret ]
 }
 
 
