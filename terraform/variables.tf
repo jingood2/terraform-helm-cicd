@@ -70,3 +70,9 @@ variable "enable_backstage" {
   description = "enable backstage"
   default     = false
 }
+
+variable "enable_certmanager" {
+  type        = bool
+  description = "enable cert-manager"
+  default     = false
+}
