@@ -14,11 +14,12 @@ spec:
       name: letsencrypt-prod
     # Enable HTTP01 validations
     solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: ${api_token_secret_name}
-            key: ${api_token_secret_data_key}
+      - dns01:
+          cloudflare:
+            email: jingood2+cloudflare@gmail.com
+            apiTokenSecretRef:
+              name: ${api_token_secret_name}
+              key: ${api_token_secret_data_key}
     #solvers:
     #- dns01:
     #    cloudflare:
