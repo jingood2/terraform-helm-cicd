@@ -11,3 +11,4 @@ enable_chartmuseum    = false
 enable_sealed_secrets = true
 enable_traefik        = true
 enable_backstage      = true
+enable_certmanager    = false
