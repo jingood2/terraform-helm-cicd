@@ -30,7 +30,7 @@ resource "kubernetes_manifest" "letsencrypt_issuer_staging" {
   count = var.enable_certmanager? 1 : 0
 
   manifest = yamldecode(templatefile(
-    "./manifests/cert-manager/cert-manager.tpl.yaml",
+    "./manifests/cert-manager/cluster-issuer.tpl.yaml",
     {
       "k8s_cert_name"             = "example-com"
       "namespace"                 = "default"
