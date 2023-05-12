@@ -35,6 +35,7 @@ resource "kubernetes_manifest" "letsencrypt_issuer_staging" {
       "k8s_cert_name"             = "example-com"
       "namespace"                 = "default"
       "acme_email"                = "jingood2+cloudflare@gmail.com"
+      "cloudflare_email"          = "jingood2+cloudflare@gmail.com"
       "acme_server_url"           = "https://acme-staging-v02.api.letsencrypt.org/directory"
       "api_token_secret_name"     = "cloudflare-api-token-secret"
       "api_token_secret_data_key" = "api-token"
