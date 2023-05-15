@@ -70,3 +70,16 @@ variable "enable_backstage" {
   description = "enable backstage"
   default     = false
 }
+
+variable "enable_certmanager" {
+  type        = bool
+  description = "enable cert-manager"
+  default     = false
+}
+
+variable "enable_aws_load_balancer_controller" {
+  type        = bool
+  description = "enable_aws_load_balancer_controller"
+  default     = false
+}
+

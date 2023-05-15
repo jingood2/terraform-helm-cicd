@@ -10,3 +10,5 @@ enable_image_updater  = false
 enable_chartmuseum    = false
 enable_sealed_secrets = false
 enable_traefik        = false
+enable_certmanager    = false
+enable_aws_load_balancer_controller = true
