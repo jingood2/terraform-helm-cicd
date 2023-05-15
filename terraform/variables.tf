@@ -76,3 +76,10 @@ variable "enable_certmanager" {
   description = "enable cert-manager"
   default     = false
 }
+
+variable "enable_aws_load_balancer_controller" {
+  type        = bool
+  description = "enable_aws_load_balancer_controller"
+  default     = false
+}
+

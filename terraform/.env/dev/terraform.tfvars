@@ -12,3 +12,4 @@ enable_sealed_secrets = true
 enable_traefik        = true
 enable_backstage      = true
 enable_certmanager    = false
+enable_aws_load_balancer_controller = true
