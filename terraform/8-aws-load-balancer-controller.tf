@@ -14,4 +14,9 @@ resource "helm_release" "aws-load-balancer-controller" {
   values = [
     "${file("values/alb-load-balancer-controller.yaml")}"
   ]
+
+  set {
+    name  = "clusterName"
+    value = var.cluster_id
+  }
 }
